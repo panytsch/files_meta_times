@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"files_meta_times/src/cmd/times"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -20,7 +21,11 @@ var timesCmd = &cobra.Command{
 	Use:   "times",
 	Short: "Get file times from metadata",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("times command")
+		if len(args) == 0 {
+			fmt.Println("You should provide path to folder")
+			return
+		}
+		fmt.Println(times.GetFilesList(args[0]))
 	},
 }
 
