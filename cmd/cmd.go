@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"files_meta_times/src/cmd/export"
 	"files_meta_times/src/cmd/times"
 	"fmt"
 
@@ -25,7 +26,13 @@ var timesCmd = &cobra.Command{
 			fmt.Println("You should provide path to folder")
 			return
 		}
-		fmt.Println(times.GetFilesList(args[0]))
+		files := export.PrepareFilesToExport(times.GetFilesList(args[0]))
+		exporter := &export.Exporter{}
+		if len(args) >= 2 {
+			exporter.SetFileName(args[1])
+		}
+		exporter.InitializateFiles(files)
+		exporter.WriteAll()
 	},
 }
 

@@ -2,6 +2,7 @@ package times
 
 import (
 	"os"
+	"path/filepath"
 	"syscall"
 	"time"
 )
@@ -21,6 +22,11 @@ func NewFile(path string) *File {
 	file.path = path
 	file.init()
 	return file
+}
+
+// GetName returns file name
+func (f *File) GetName() string {
+	return filepath.Base(f.path)
 }
 
 //GetLastReadTime in unix time
@@ -48,4 +54,9 @@ func (f *File) init() {
 	f.mTime = time.Unix(info.Mtim.Unix())
 	f.cTime = time.Unix(info.Ctim.Unix())
 	f.initted = true
+}
+
+// GetPath returns absolute file path
+func (f *File) GetPath() string {
+	return f.path
 }
