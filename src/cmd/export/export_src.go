@@ -3,6 +3,7 @@ package export
 import (
 	"encoding/csv"
 	"files_meta_times/src/cmd/times"
+	"log"
 	"os"
 )
 
@@ -35,13 +36,20 @@ func (e *Exporter) InitializateFiles(files []*times.File) {
 
 //WriteAll write to file
 func (e *Exporter) WriteAll() {
-	fileToWrite, err := os.Create(e.GetFileName())
+	fileToWrite, err := os.Create(e.GetFileName() + ".csv")
 	if err != nil {
 		return
 	}
+	defer fileToWrite.Close()
+
 	writter := csv.NewWriter(fileToWrite)
+	defer writter.Flush()
+
 	for _, record := range e.data {
-		writter.Write(record)
+		er := writter.Write(record)
+		if er != nil {
+			log.Fatal("error during writting", er.Error())
+		}
 	}
 }
 

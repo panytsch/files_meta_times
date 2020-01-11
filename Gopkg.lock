@@ -2,26 +2,32 @@
 
 
 [[projects]]
+  digest = "1:870d441fe217b8e689d7949fef6e43efbc787e50f200cb1e70dbca9204a1d6be"
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
+  pruneopts = ""
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
   version = "v1.0"
 
 [[projects]]
+  digest = "1:0c63b3c7ad6d825a898f28cb854252a3b29d37700c68a117a977263f5ec94efe"
   name = "github.com/spf13/cobra"
   packages = ["."]
+  pruneopts = ""
   revision = "f2b07da1e2c38d5f12845a4f607e2e1018cbb1f5"
   version = "v0.0.5"
 
 [[projects]]
+  digest = "1:688428eeb1ca80d92599eb3254bdf91b51d7e232fead3a73844c1f201a281e51"
   name = "github.com/spf13/pflag"
   packages = ["."]
+  pruneopts = ""
   revision = "2e9d26c8c37aae03e3f9d4e90b7116f5accb7cab"
   version = "v1.0.5"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5eda3838fc88b2a483599fec65019f4a40dd483b6c6d29dbd6df2cd65e2058cd"
+  input-imports = ["github.com/spf13/cobra"]
   solver-name = "gps-cdcl"
   solver-version = 1
