@@ -27,10 +27,10 @@ func PrepareFilesToExport(files []string) []*times.File {
 //InitializateFiles init files before export
 func (e *Exporter) InitializateFiles(files []*times.File) {
 	e.data = [][]string{
-		{"Path", "Name", "Last file read time", "Last content changing time"},
+		{"Path", "Name", "Extension", "Last file read time", "Last content changing time"},
 	}
 	for _, file := range files {
-		e.data = append(e.data, []string{file.GetPath(), file.GetName(), file.GetLastReadTime().String(), file.GetLastModificationTime().String()})
+		e.data = append(e.data, []string{file.GetPath(), file.GetName(), file.GetExt(), file.GetLastReadTime().String(), file.GetLastModificationTime().String()})
 	}
 }
 

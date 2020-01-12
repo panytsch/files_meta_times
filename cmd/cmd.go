@@ -10,7 +10,6 @@ import (
 
 func init() {
 	rootCmd.AddCommand(timesCmd)
-	rootCmd.AddCommand(filesListCmd)
 }
 
 // Execute - executing command
@@ -33,14 +32,6 @@ var timesCmd = &cobra.Command{
 		}
 		exporter.InitializateFiles(files)
 		exporter.WriteAll()
-	},
-}
-
-var filesListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Get files list recurcively",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("list command")
 	},
 }
 

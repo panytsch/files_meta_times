@@ -9,6 +9,7 @@ import (
 // File - object with file data
 type File struct {
 	path    string
+	ext     string
 	aTime   time.Time // last file read time
 	mTime   time.Time // time when content changed
 	initted bool
@@ -25,6 +26,11 @@ func NewFile(path string) *File {
 // GetName returns file name
 func (f *File) GetName() string {
 	return filepath.Base(f.path)
+}
+
+// GetExt returns file extension
+func (f *File) GetExt() string {
+	return filepath.Ext(f.path)
 }
 
 //GetLastReadTime in unix time
