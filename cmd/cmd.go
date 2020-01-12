@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(timesCmd)
+	rootCmd.AddCommand(exportCmd)
 }
 
 // Execute - executing command
@@ -17,8 +17,8 @@ func Execute() {
 	rootCmd.Execute()
 }
 
-var timesCmd = &cobra.Command{
-	Use:   "times",
+var exportCmd = &cobra.Command{
+	Use:   "export",
 	Short: "Get file times from metadata",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
