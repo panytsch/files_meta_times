@@ -3,7 +3,6 @@ package times
 import (
 	"os"
 	"path/filepath"
-	"syscall"
 	"time"
 )
 
@@ -12,7 +11,6 @@ type File struct {
 	path    string
 	aTime   time.Time // last file read time
 	mTime   time.Time // time when content changed
-	cTime   time.Time // last file meta data changed
 	initted bool
 }
 
@@ -39,20 +37,12 @@ func (f *File) GetLastModificationTime() time.Time {
 	return f.mTime
 }
 
-//GetLastMetaChangingTime in unix time
-func (f *File) GetLastMetaChangingTime() time.Time {
-	return f.cTime
-}
-
 func (f *File) init() {
 	if f.initted {
 		return
 	}
 	fileinfo, _ := os.Stat(f.path)
-	info := fileinfo.Sys().(*syscall.Stat_t)
-	f.aTime = time.Unix(info.Atim.Unix())
-	f.mTime = time.Unix(info.Mtim.Unix())
-	f.cTime = time.Unix(info.Ctim.Unix())
+	FillTimes(fileinfo, f)
 	f.initted = true
 }
 
