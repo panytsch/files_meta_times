@@ -2,12 +2,14 @@ package cmd
 
 import (
 	"files_meta_times/src/cmd/export"
+	"files_meta_times/src/cmd/list"
 
 	"github.com/spf13/cobra"
 )
 
 func init() {
 	rootCmd.AddCommand(exportCmd)
+	rootCmd.AddCommand(listCmd)
 }
 
 // Execute - executing command
@@ -17,9 +19,16 @@ func Execute() {
 
 var exportCmd = &cobra.Command{
 	Use:   "export",
-	Short: "Get file times from metadata",
+	Short: "Get file times from metadata and write it to file",
 	Args:  cobra.MinimumNArgs(1),
 	Run:   export.CommandExportRun,
+}
+
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "Get file times from metadata and show it",
+	Args:  cobra.MinimumNArgs(1),
+	Run:   list.CommandListRun,
 }
 
 var rootCmd = &cobra.Command{

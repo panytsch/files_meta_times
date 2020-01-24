@@ -3,10 +3,9 @@ package export
 import (
 	"encoding/csv"
 	"files_meta_times/src/cmd/times"
+	"github.com/spf13/cobra"
 	"log"
 	"os"
-
-	"github.com/spf13/cobra"
 )
 
 const defaultFileName = "scanResult"
@@ -27,7 +26,8 @@ func (e *Exporter) Write(file *times.File) {
 			return
 		}
 		e.csvWriter = csv.NewWriter(e.exportFile)
-		_ = e.csvWriter.Write([]string{"Path", "Name", "Extension", "Last file read time", "Last content changing time"})
+		e.csvWriter.Comma = '\t'
+		_ = e.csvWriter.Write(times.GetHeader())
 	}
 	er := e.csvWriter.Write(file.GetRecord())
 	if er != nil {

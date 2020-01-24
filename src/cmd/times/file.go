@@ -3,6 +3,7 @@ package times
 import (
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 )
 
@@ -47,8 +48,8 @@ func (f *File) init() {
 	if f.initted {
 		return
 	}
-	fileinfo, _ := os.Stat(f.path)
-	FillTimes(fileinfo, f)
+	fileInfo, _ := os.Stat(f.path)
+	FillTimes(fileInfo, f)
 	f.initted = true
 }
 
@@ -58,5 +59,41 @@ func (f *File) GetPath() string {
 }
 
 func (f *File) GetRecord() []string {
-	return []string{f.GetPath(), f.GetName(), f.GetExt(), f.GetLastReadTime().String(), f.GetLastModificationTime().String()}
+	return []string{
+		f.GetPath(),
+		f.GetName(),
+		f.GetExt(),
+		f.GetLastReadTime().String(),
+		f.GetLastModificationTime().String(),
+	}
+}
+
+func (f *File) GetFormattedRecord() []string {
+	return []string{
+		f.GetPath(),
+		f.GetName(),
+		f.GetExt(),
+		format(f.GetLastReadTime()),
+		format(f.GetLastModificationTime()),
+	}
+}
+
+func format(t time.Time) string {
+	result := strconv.Itoa(t.Year()) + "-"
+	result += strconv.Itoa(int(t.Month())) + "-"
+	result += strconv.Itoa(t.Day()) + " "
+	result += strconv.Itoa(t.Hour()) + ":"
+	result += strconv.Itoa(t.Minute()) + ":"
+	result += strconv.Itoa(t.Second())
+	return result
+}
+
+func GetHeader() []string {
+	return []string{
+		"Path",
+		"Name",
+		"Extension",
+		"Last file read time",
+		"Last content changing time",
+	}
 }

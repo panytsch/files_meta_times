@@ -13,4 +13,7 @@ docker run --rm -it -v "$PWD":/go/src/files_meta_times -w /go/src/files_meta_tim
 files_meta_times export {path_to_folder} {file_name_to_export (optional)}
 ```
 
-For now, supports only one command ```export```
+For now, supports only one commands ``export`` and ``list``
+
+Using ``export`` command you'll get report in .csv file in the same directory with program
+Using ``list`` command you'll see report on you screen without saving to file 

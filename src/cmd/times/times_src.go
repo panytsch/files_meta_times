@@ -5,11 +5,11 @@ import (
 	"path/filepath"
 )
 
-//Writter function to write file
-type Writter func(file *File)
+//Writer function to write file
+type Writer func(file *File)
 
 //GenerateReport and write it using witter
-func GenerateReport(rootPath string, writer Writter) {
+func GenerateReport(rootPath string, writer Writer) {
 	_ = filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
