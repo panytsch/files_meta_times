@@ -56,3 +56,7 @@ func (f *File) init() {
 func (f *File) GetPath() string {
 	return f.path
 }
+
+func (f *File) GetRecord() []string {
+	return []string{f.GetPath(), f.GetName(), f.GetExt(), f.GetLastReadTime().String(), f.GetLastModificationTime().String()}
+}
