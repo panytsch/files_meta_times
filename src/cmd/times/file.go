@@ -79,13 +79,20 @@ func (f *File) GetFormattedRecord() []string {
 }
 
 func format(t time.Time) string {
-	result := strconv.Itoa(t.Year()) + "-"
-	result += strconv.Itoa(int(t.Month())) + "-"
-	result += strconv.Itoa(t.Day()) + " "
-	result += strconv.Itoa(t.Hour()) + ":"
-	result += strconv.Itoa(t.Minute()) + ":"
-	result += strconv.Itoa(t.Second())
+	result := zeroConcat(t.Year()) + "-"
+	result += zeroConcat(int(t.Month())) + "-"
+	result += zeroConcat(t.Day()) + " "
+	result += zeroConcat(t.Hour()) + ":"
+	result += zeroConcat(t.Minute()) + ":"
+	result += zeroConcat(t.Second())
 	return result
+}
+
+func zeroConcat(i int) string {
+	if i < 10 {
+		return "0" + strconv.Itoa(i)
+	}
+	return strconv.Itoa(i)
 }
 
 func GetHeader() []string {
