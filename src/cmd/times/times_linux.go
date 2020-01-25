@@ -12,3 +12,8 @@ func FillTimes(fi os.FileInfo, f *File) {
 	f.aTime = time.Unix(info.Atim.Unix())
 	f.mTime = time.Unix(info.Mtim.Unix())
 }
+
+//IsAccessDateEnabled checks is last access date enabled in you file system
+func IsAccessDateEnabled() bool {
+	return true
+}

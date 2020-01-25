@@ -3,7 +3,6 @@ package times
 import (
 	"os"
 	"path/filepath"
-	"strconv"
 	"time"
 )
 
@@ -56,51 +55,4 @@ func (f *File) init() {
 // GetPath returns absolute file path
 func (f *File) GetPath() string {
 	return f.path
-}
-
-func (f *File) GetRecord() []string {
-	return []string{
-		f.GetPath(),
-		f.GetName(),
-		f.GetExt(),
-		f.GetLastReadTime().String(),
-		f.GetLastModificationTime().String(),
-	}
-}
-
-func (f *File) GetFormattedRecord() []string {
-	return []string{
-		f.GetPath(),
-		f.GetName(),
-		f.GetExt(),
-		format(f.GetLastReadTime()),
-		format(f.GetLastModificationTime()),
-	}
-}
-
-func format(t time.Time) string {
-	result := zeroConcat(t.Year()) + "-"
-	result += zeroConcat(int(t.Month())) + "-"
-	result += zeroConcat(t.Day()) + " "
-	result += zeroConcat(t.Hour()) + ":"
-	result += zeroConcat(t.Minute()) + ":"
-	result += zeroConcat(t.Second())
-	return result
-}
-
-func zeroConcat(i int) string {
-	if i < 10 {
-		return "0" + strconv.Itoa(i)
-	}
-	return strconv.Itoa(i)
-}
-
-func GetHeader() []string {
-	return []string{
-		"Path",
-		"Name",
-		"Extension",
-		"Last file read time",
-		"Last content changing time",
-	}
 }

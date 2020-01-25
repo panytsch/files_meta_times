@@ -27,9 +27,9 @@ func (e *Exporter) Write(file *times.File) {
 		}
 		e.csvWriter = csv.NewWriter(e.exportFile)
 		e.csvWriter.Comma = '\t'
-		_ = e.csvWriter.Write(times.GetHeader())
+		_ = e.csvWriter.Write(GetHeader())
 	}
-	er := e.csvWriter.Write(file.GetRecord())
+	er := e.csvWriter.Write(GetRecord(file))
 	if er != nil {
 		log.Fatal("error during writing", er.Error())
 	}
@@ -64,10 +64,33 @@ func (e *Exporter) GetFileName() string {
 
 //CommandExportRun basic export command
 func CommandExportRun(_ *cobra.Command, args []string) {
+	if !times.IsAccessDateEnabled() {
+		log.Println("WARNING: Last access date is disabled in your file system. please enable it. Report will be useless")
+	}
 	exporter := &Exporter{}
 	if len(args) >= 2 {
 		exporter.SetFileName(args[1])
 	}
 	times.GenerateReport(args[0], exporter.Write)
 	defer exporter.Flush()
+}
+
+func GetRecord(f *times.File) []string {
+	return []string{
+		f.GetPath(),
+		f.GetName(),
+		f.GetExt(),
+		f.GetLastReadTime().String(),
+		f.GetLastModificationTime().String(),
+	}
+}
+
+func GetHeader() []string {
+	return []string{
+		"Path",
+		"Name",
+		"Extension",
+		"Last file read time",
+		"Last content changing time",
+	}
 }
